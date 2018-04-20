@@ -31,4 +31,11 @@ public class MainActivity extends AppCompatActivity {
         startActivity(i);
 
     }
+
+    @OnClick(R.id.btnPokemon)
+    public void pokemons(){
+        Intent i = new Intent(MainActivity.this, Pokemon.class);
+        startActivity(i);
+
+    }
 }

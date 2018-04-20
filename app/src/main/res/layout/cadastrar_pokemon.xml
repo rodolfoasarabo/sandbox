@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/tilNome"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:hint="Nome"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <EditText
+            android:id="@+id/edtNome"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/tilTipo"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="6dp"
+        android:focusable="false"
+        android:hint="Tipo"
+        app:layout_constraintEnd_toStartOf="@+id/tilSexo"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tilNome">
+
+        <EditText
+            android:id="@+id/edtTipo"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </android.support.design.widget.TextInputLayout>
+
+    <ImageView
+        android:id="@+id/btnArrowTipo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="@id/tilTipo"
+        app:layout_constraintTop_toTopOf="@id/tilTipo"
+        app:layout_constraintBottom_toBottomOf="@id/tilTipo"
+        android:src="@drawable/ic_arrow_drop_down"/>
+
+    <View
+        android:id="@+id/viewClickTipo"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toTopOf="@id/tilTipo"
+        app:layout_constraintBottom_toBottomOf="@id/tilTipo"
+        app:layout_constraintEnd_toEndOf="@id/tilTipo"
+        app:layout_constraintStart_toStartOf="@id/tilTipo"/>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/tilSexo"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginStart="6dp"
+        android:focusable="false"
+        android:hint="Sexo"
+        app:layout_constraintBottom_toBottomOf="@id/tilTipo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/tilTipo"
+        app:layout_constraintTop_toTopOf="@id/tilTipo">
+
+        <EditText
+            android:id="@+id/edtSexo"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </android.support.design.widget.TextInputLayout>
+
+    <ImageView
+        android:id="@+id/btnArrowSexo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="@id/tilSexo"
+        app:layout_constraintTop_toTopOf="@id/tilSexo"
+        app:layout_constraintBottom_toBottomOf="@id/tilSexo"
+        android:src="@drawable/ic_arrow_drop_down"/>
+
+    <View
+        android:id="@+id/viewClickSexo"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toTopOf="@id/tilSexo"
+        app:layout_constraintBottom_toBottomOf="@id/tilSexo"
+        app:layout_constraintEnd_toEndOf="@id/tilSexo"
+        app:layout_constraintStart_toStartOf="@id/tilSexo"/>
+
+    <Button
+        android:id="@+id/btnSalvar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:text="SALVAR"/>
+
+</android.support.constraint.ConstraintLayout>

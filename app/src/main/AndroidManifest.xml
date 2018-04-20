@@ -26,6 +26,18 @@
             android:label="Endless Scroll"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden"/>
+        <activity android:name=".Pokemon"
+            android:label="Pokemon"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden"/>
+        <activity android:name=".ListaPokemon"
+            android:label="Lista"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden"/>
+        <activity android:name=".CadastroPokemon"
+            android:label="Cadastro"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden"/>
 
     </application>
 
