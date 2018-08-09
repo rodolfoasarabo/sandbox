@@ -13,7 +13,7 @@ public class CriacaoDeTabelas {
 
     public static void executarScript(SQLiteDatabase db, Context ctx){
 
-        db.execSQL(PokemonDao.CREATE_TABLE_POKEMON);
+        db.execSQL(PokemonDaoOld.CREATE_TABLE_POKEMON);
         Log.d(TAG, "Tabela Criada");
 
     }

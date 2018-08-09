@@ -6,12 +6,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.sarabrdo.sandbox.banco.PokemonController;
-import com.example.sarabrdo.sandbox.banco.PokemonDao;
+import com.example.sarabrdo.sandbox.banco.PokemonDaoOld;
+import com.example.sarabrdo.sandbox.entity.Pokemon;
 import com.example.sarabrdo.sandbox.models.PokemonModel;
 
 import java.util.List;
@@ -25,20 +24,18 @@ import butterknife.ButterKnife;
 
 public class PokemonAdapter extends RecyclerView.Adapter<PokemonAdapter.PokemonAdapterHolder> {
 
-    private final List<PokemonModel> pokemons;
+    private List<Pokemon> pokemons;
     private OnItemClickListener clickListener;
     private OnItemRemoved itemRemoved;
-    private PokemonDao crud;
+    private PokemonDaoOld crud;
 
 
     public void setClickListener(OnItemClickListener itemClickListener) {
         this.clickListener = itemClickListener;
     }
 
-    public PokemonAdapter(List<PokemonModel> pokemons, PokemonDao crud, OnItemRemoved itemRemoved) {
+    public PokemonAdapter(List<Pokemon> pokemons) {
         this.pokemons = pokemons;
-        this.crud = crud;
-        this.itemRemoved = itemRemoved;
     }
 
     @Override
@@ -49,11 +46,15 @@ public class PokemonAdapter extends RecyclerView.Adapter<PokemonAdapter.PokemonA
 
     @Override
     public void onBindViewHolder(PokemonAdapterHolder holder, int position) {
-        PokemonModel pokemon = pokemons.get(position);
-        holder.lblNomeValor.setText(pokemon.nome);
-        holder.lblTipoValor.setText(pokemon.tipo);
-        holder.lblSexoValor.setText(pokemon.sexo);
+        Pokemon pokemon = pokemons.get(position);
+        holder.lblNomeValor.setText(pokemon.getPokemon_name());
+        holder.lblTipoValor.setText(pokemon.getTipo());
+        holder.lblSexoValor.setText(pokemon.getSexo());
 
+    }
+    public void setPokemons(List<Pokemon> pokemons){
+        this.pokemons = pokemons;
+        notifyDataSetChanged();
     }
 
     @Override
@@ -61,7 +62,7 @@ public class PokemonAdapter extends RecyclerView.Adapter<PokemonAdapter.PokemonA
         return pokemons != null ? pokemons.size() : 0;
     }
 
-    public List<PokemonModel> getItems(){
+    public List<Pokemon> getItems(){
         return pokemons;
     }
 
@@ -96,7 +97,7 @@ public class PokemonAdapter extends RecyclerView.Adapter<PokemonAdapter.PokemonA
             builder.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
-                    crud.excluirPokemon(pokemons.get(getAdapterPosition()).id);
+//                    crud.excluirPokemon(pokemonsOld.get(getAdapterPosition()).id);
                     itemRemoved.removed(getAdapterPosition());
                     dialogInterface.dismiss();
                 }
@@ -118,7 +119,7 @@ public class PokemonAdapter extends RecyclerView.Adapter<PokemonAdapter.PokemonA
     }
 
     public interface OnItemClickListener {
-        void onClick(View view, int position, PokemonModel pokemonModel);
+        void onClick(View view, int position, Pokemon pokemonModel);
     }
 
 }

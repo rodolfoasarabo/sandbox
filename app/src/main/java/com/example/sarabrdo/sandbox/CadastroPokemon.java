@@ -1,8 +1,8 @@
 package com.example.sarabrdo.sandbox;
 
+import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.PopupMenu;
@@ -14,8 +14,9 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.example.sarabrdo.sandbox.banco.PokemonController;
-import com.example.sarabrdo.sandbox.banco.PokemonDao;
+import com.example.sarabrdo.sandbox.banco.PokemonDaoOld;
+import com.example.sarabrdo.sandbox.entity.Pokemon;
+import com.example.sarabrdo.sandbox.viewModel.PokemonViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,6 +61,8 @@ public class CadastroPokemon extends AppCompatActivity {
 
     String tipo, sexo;
 
+    private PokemonViewModel viewModel;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         setContentView(R.layout.cadastrar_pokemon);
@@ -76,6 +79,8 @@ public class CadastroPokemon extends AppCompatActivity {
         sexos.add("Masculino");
         sexos.add("Feminino");
         sexos.add("Outros");
+
+        viewModel = ViewModelProviders.of(this).get(PokemonViewModel.class);
 
         popupTipo.getMenu().clear();
         for (int i = 0; i < tipos.size(); i++){
@@ -122,13 +127,8 @@ public class CadastroPokemon extends AppCompatActivity {
 
     @OnClick(R.id.btnSalvar)
     public void salvarPokemon(){
-        PokemonDao crud = new PokemonDao();
-        String nome = edtNome.getText().toString();
-        String result;
-
-        result = crud.addPokemon(this, nome, tipo, sexo);
-
-        Toast.makeText(this, result, Toast.LENGTH_SHORT).show();
+        Pokemon pokemon = new Pokemon(edtNome.getText().toString(), edtTipo.getText().toString(), edtSexo.getText().toString());
+        viewModel.insert(pokemon);
         finish();
     }
 

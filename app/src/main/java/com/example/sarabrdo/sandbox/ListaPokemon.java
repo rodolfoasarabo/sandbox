@@ -1,5 +1,7 @@
 package com.example.sarabrdo.sandbox;
 
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -8,9 +10,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewTreeObserver;
 
-import com.example.sarabrdo.sandbox.banco.PokemonController;
-import com.example.sarabrdo.sandbox.banco.PokemonDao;
+import com.example.sarabrdo.sandbox.banco.PokemonDaoOld;
+import com.example.sarabrdo.sandbox.entity.Pokemon;
 import com.example.sarabrdo.sandbox.models.PokemonModel;
+import com.example.sarabrdo.sandbox.viewModel.PokemonViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,16 +32,22 @@ public class ListaPokemon extends AppCompatActivity implements PokemonAdapter.On
 
     PokemonAdapter mAdapter;
     private LinearLayoutManager layoutManager;
-    PokemonDao crud = new PokemonDao();
-    List<PokemonModel> pokemons = new ArrayList<>();
+    private PokemonViewModel viewModel;
+    List<Pokemon> pokemonList = new ArrayList<>();
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         setContentView(R.layout.lista_pokemon);
         ButterKnife.bind(this);
         super.onCreate(savedInstanceState);
-        pokemons = crud.carregaDados();
-        if (pokemons != null)
-            setupRecycler();
+
+        viewModel = ViewModelProviders.of(this).get(PokemonViewModel.class);
+        viewModel.getAllPokemons().observe(this, new Observer<List<Pokemon>>() {
+            @Override
+            public void onChanged(@Nullable List<Pokemon> pokemons) {
+                mAdapter.setPokemons(pokemons);
+            }
+        });
+
     }
 
     @Override
@@ -53,7 +62,7 @@ public class ListaPokemon extends AppCompatActivity implements PokemonAdapter.On
             layoutManager = new LinearLayoutManager(this);
             layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
             rvPokemons.setLayoutManager(layoutManager);
-            mAdapter = new PokemonAdapter(pokemons, crud, this);
+            mAdapter = new PokemonAdapter(pokemonList);
             rvPokemons.setAdapter(mAdapter);
             rvPokemons.getViewTreeObserver().addOnPreDrawListener(
                     new ViewTreeObserver.OnPreDrawListener() {
@@ -80,7 +89,7 @@ public class ListaPokemon extends AppCompatActivity implements PokemonAdapter.On
 
     @Override
     public void removed(int position) {
-        pokemons.remove(position);
+//        pokemons.remove(position);
         mAdapter.notifyItemRemoved(position);
     }
 }
